@@ -1,0 +1,36 @@
+name: Secure Zenodo API Example
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  zenodo-api-check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate secret is configured
+        env:
+          ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
+        run: |
+          if [ -z "$ZENODO_TOKEN" ]; then
+            echo "ZENODO_TOKEN secret is not configured."
+            echo "Set it in: Settings > Secrets and variables > Actions"
+            exit 1
+          fi
+
+      - name: Call Zenodo API securely
+        env:
+          ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
+          ZENODO_API_BASE_URL: https://zenodo.org/api
+        run: |
+          curl --fail --silent --show-error \
+            "${ZENODO_API_BASE_URL}/deposit/depositions?access_token=${ZENODO_TOKEN}" \
+            > /dev/null
+          echo "Zenodo API call succeeded without exposing token."
