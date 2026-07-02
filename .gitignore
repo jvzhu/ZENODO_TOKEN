@@ -1,0 +1,51 @@
+# Environment and secret files
+.env
+.env.*
+!.env.example
+*.env
+*.secret
+*.secrets
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+
+# Common token/config patterns
+credentials.json
+tokens.json
+auth.json
+secrets.json
+service-account*.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editors/OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Build / test artifacts
+dist/
+build/
+coverage/
+.pytest_cache/
+.mypy_cache/
